@@ -7,7 +7,7 @@ import enumeratum._
 import squants.market._
 
 /**
- * @author <a href="michael@ahlers.consulting">Michael Ahlers</a>
+ * @see [[https://github.com/awslabs/amazon-kinesis-learning/blob/181ee5830b4401b54e64c9a784ea2973d96e381a/src/com/amazonaws/services/kinesis/samples/stocktrades/model/StockTrade.java StockTrade]]
  */
 case class StockTrade(tickerSymbol: TickerSymbol, tradeType: TradeType, price: Money, quantity: Quantity, id: Id = nextId())
 

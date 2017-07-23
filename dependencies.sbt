@@ -10,3 +10,9 @@ libraryDependencies ++=
     "com.typesafe.scala-logging" %% "scala-logging" % "latest.release" ::
     "org.typelevel" %% "squants" % "latest.release" ::
     Nil
+
+/** Satisfies a dependency of the Amazon Kinesis Java SDK. */
+libraryDependencies ++=
+  "com.fasterxml.jackson.core" % "jackson-core" % "latest.release" ::
+    "com.fasterxml.jackson.dataformat" % "jackson-dataformat-cbor" % "latest.release" ::
+    Nil

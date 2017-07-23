@@ -1,3 +1,7 @@
-# Sandbox: Amazon Kinesis [![Build Status](https://circleci.com/gh/michaelahlers/sandbox-amazon-kinesis/tree/master.svg?style=shield&circle-token=2210b549d58ff4bbb67a96ca7fa89c591271180b)](https://circleci.com/gh/michaelahlers/sandbox-amazon-kinesis/tree/master)
+# Sandbox: Amazon Kinesis [![Build Status][sandbox-amazon-kinesis-build-status]][sandbox-amazon-kinesis-project]
 
-Learning and exploring usage of Amazon Kinesis.
+Learning and exploring usage of [Amazon Kinesis][amazon-kinesis].
+
+[amazon-kinesis]: https://aws.amazon.com/kinesis/
+[sandbox-amazon-kinesis-build-status]: https://circleci.com/gh/michaelahlers/sandbox-amazon-kinesis/tree/master.svg?style=shield&circle-token=2210b549d58ff4bbb67a96ca7fa89c591271180b
+[sandbox-amazon-kinesis-project]: https://circleci.com/gh/michaelahlers/sandbox-amazon-kinesis/tree/master

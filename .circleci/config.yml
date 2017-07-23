@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "dependencies.sbt" }}
+          - v1-dependencies-
+
+      - run: cat /dev/null | sbt test:compile
+
+      - save_cache:
+          paths:
+            - ~/.ivy2
+            - ~/.m2
+            - ~/.sbt
+          key: v1-dependencies-{{ checksum "dependencies.sbt" }}
+
+      - run: cat /dev/null | sbt test:test

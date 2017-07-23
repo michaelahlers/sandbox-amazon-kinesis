@@ -17,14 +17,14 @@ package object protocols {
 
   private implicit def implyJsResult[A](v: Try[A]): JsResult[A] = v.fold({ e => JsError(e.getMessage) }, JsSuccess(_))
 
-  implicit val MoneyReads: Reads[Money] = __.read[String] flatMap { v => Reads { _ => Money(v) } }
-  implicit val MoneyWrites: Writes[Money] = __.write[String].contramap(_.toString)
+  implicit val MoneyReads: Reads[Money] = StringReads flatMap { v => Reads { _ => Money(v) } }
+  implicit val MoneyWrites: Writes[Money] = StringWrites.contramap(_.toString)
 
-  implicit val TickerSymbolFormat: Format[TickerSymbol] = __.format[String].inmap(TickerSymbol, _.id)
+  implicit val TickerSymbolFormat: Format[TickerSymbol] = Format(StringReads, StringWrites).inmap(TickerSymbol, _.id)
 
   /* Why not use Enumeratum's Play JSON support? It couples the format to the type, and buffer protocols should be kept orthogonal. */
-  implicit val TradeTypeReads: Reads[TradeType] = __.read[String] flatMap { v => Reads { _ => Try(TradeType.withNameInsensitive(v)) } }
-  implicit val TradeTypeWrites: Writes[TradeType] = __.write[String].contramap(_.entryName)
+  implicit val TradeTypeReads: Reads[TradeType] = StringReads flatMap { v => Reads { _ => Try(TradeType.withNameInsensitive(v)) } }
+  implicit val TradeTypeWrites: Writes[TradeType] = StringWrites.contramap(_.entryName)
 
   implicit val StockTradeFormat: OFormat[StockTrade] = (
     (__ \ 'tickerSymbol).format[TickerSymbol] and

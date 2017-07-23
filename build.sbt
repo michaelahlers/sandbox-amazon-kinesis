@@ -4,7 +4,7 @@ name := "sandbox-amazon-kinesis"
 
 version := "1.0.0"
 
-scalaVersion := Versions.Scala
+scalaVersion := "2.12.2"
 
 /** See [[https://tpolecat.github.io/2017/04/25/scalac-flags.html ''Recommended Scalac Flags for 2.12'']] by [[https://tpolecat.github.io/about.html Rob Norris]]. */
 scalacOptions :=

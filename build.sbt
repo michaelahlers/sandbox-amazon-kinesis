@@ -10,10 +10,11 @@ scalaVersion := "2.12.2"
 scalacOptions :=
   "-Xcheckinit" ::
     "-Xfatal-warnings" ::
-    "-Xlint" ::
+    "-Xlint:-unused,_" ::
     "-Ywarn-dead-code" ::
     "-Ywarn-inaccessible" ::
     "-Ywarn-infer-any" ::
+    "-Ywarn-unused:-imports,-params,_" ::
     "-Ywarn-value-discard" ::
     "-deprecation" ::
     "-encoding" :: "utf-8" ::

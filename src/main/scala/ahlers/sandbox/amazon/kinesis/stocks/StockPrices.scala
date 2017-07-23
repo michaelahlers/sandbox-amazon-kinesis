@@ -24,6 +24,7 @@ object StockPrices {
       .collect({ case Success(stockPrice) => stockPrice })
   }
 
-  def random: StockPrice = all(Random.nextInt(all.size))
+  val random: Stream[StockPrice] =
+    Stream.continually(all(Random.nextInt(all.size)))
 
 }

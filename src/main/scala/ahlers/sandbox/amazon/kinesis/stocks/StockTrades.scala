@@ -13,19 +13,18 @@ object StockTrades {
 
   val ProbabilitySell = 0.4
 
-  def random: StockTrade = {
-    import StockTrade._
-    import TradeType._
+  val random: Stream[StockTrade] =
+    StockPrices.random map { stockPrice =>
+      import StockTrade._
+      import TradeType._
+      import stockPrice._
 
-    val stockPrice = StockPrices.random
-    import stockPrice._
+      val deviation = (Random.nextDouble() - 0.5) * 2.0 * MaxDeviation
+      val price = stockPrice.price * (1 + deviation)
+      val tradeType = if (Random.nextDouble() < ProbabilitySell) Sell else Buy
+      val quantity = Random.nextInt(MaxQuantity) + 1
 
-    val deviation = (Random.nextDouble() - 0.5) * 2.0 * MaxDeviation
-    val price = stockPrice.price * (1 + deviation)
-    val tradeType = if (Random.nextDouble() < ProbabilitySell) Sell else Buy
-    val quantity = Random.nextInt(MaxQuantity) + 1
-
-    StockTrade(tickerSymbol, tradeType, price, quantity)
-  }
+      StockTrade(tickerSymbol, tradeType, price, quantity)
+    }
 
 }

@@ -1,8 +1,10 @@
 package ahlers.sandbox.amazon.kinesis
 
+import com.amazonaws.regions.{ Region, RegionUtils }
 import com.typesafe.config.ConfigFactory
 import net.ceedubs.ficus.Ficus._
 import net.ceedubs.ficus.readers.ArbitraryTypeReader._
+import net.ceedubs.ficus.readers.ValueReader
 
 import scala.concurrent.duration.FiniteDuration
 
@@ -10,7 +12,7 @@ import scala.concurrent.duration.FiniteDuration
  * @author <a href="michael@ahlers.consulting">Michael Ahlers</a>
  */
 case class Settings(amazon: Settings.Amazon, sandbox: Settings.Sandbox)
-object Settings extends App {
+object Settings {
 
   case class Amazon(kinesis: Amazon.Kinesis)
   object Amazon {
@@ -20,7 +22,7 @@ object Settings extends App {
       type Profile = String
     }
 
-    case class Kinesis(credential: Credential)
+    case class Kinesis(region: Region, credential: Credential)
 
   }
 
@@ -45,11 +47,13 @@ object Settings extends App {
 
   }
 
-  /* Contains a work-around for iheartradio/ficus#8. */
-  lazy val instance: Settings =
+  /* Uses a work-around for iheartradio/ficus#8. */
+  lazy val instance: Settings = {
+    implicit val RegionReader: ValueReader[Region] = stringValueReader map RegionUtils.getRegion
     ConfigFactory.load()
       .atKey("x")
       .as[Settings]("x")
+  }
 
 }
 
